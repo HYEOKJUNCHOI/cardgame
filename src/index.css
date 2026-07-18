@@ -1,0 +1,10 @@
+:root {
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
+  color: #f8e9bf;
+  background: #07101d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+html, body, #root { min-width: 1100px; min-height: 100%; margin: 0; }
+body { min-height: 100vh; overflow-x: auto; }
