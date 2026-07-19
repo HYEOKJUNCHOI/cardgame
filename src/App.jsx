@@ -104,7 +104,7 @@ function App() {
       if (isPair) setMatched((items) => [...items, first.id])
       setOpen([])
       lockRef.current = false
-    }, isPair ? 520 : 920)
+    }, isPair ? 430 : 800)
   }
 
   return (

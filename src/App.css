@@ -177,8 +177,10 @@ h1 {
 .card-rotor {
   position: absolute;
   inset: 0;
+  transform: rotateY(0deg);
   transform-style: preserve-3d;
-  transition: transform .58s cubic-bezier(.2, .72, .2, 1.12);
+  transition: transform .4s cubic-bezier(.22, .7, .28, 1);
+  will-change: transform;
   filter: drop-shadow(0 8px 7px rgba(0, 0, 0, .58));
 }
 
@@ -188,7 +190,7 @@ h1 {
 }
 
 .game-card.is-flipped .card-rotor,
-.game-card.is-matched .card-rotor { transform: none; animation: flip-reveal .5s cubic-bezier(.2, .72, .2, 1); }
+.game-card.is-matched .card-rotor { transform: rotateY(180deg); }
 .game-card.is-matched .card-rotor { filter: drop-shadow(0 0 10px rgba(255, 207, 94, .72)) saturate(.9); }
 
 .card-side {
@@ -197,15 +199,12 @@ h1 {
   display: block;
   overflow: hidden;
   border-radius: 6.3%;
-  transition: opacity .12s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.card-back { opacity: 1; }
-.card-front { opacity: 0; }
-.game-card.is-flipped .card-back,
-.game-card.is-matched .card-back { opacity: 0; }
-.game-card.is-flipped .card-front,
-.game-card.is-matched .card-front { opacity: 1; }
+.card-back { transform: rotateY(0deg); }
+.card-front { transform: rotateY(180deg); }
 .card-side > img { width: 100%; height: 100%; object-fit: fill; display: block; pointer-events: none; }
 
 .card-shell { position: absolute; inset: 0; z-index: 1; }
@@ -331,12 +330,6 @@ h1 {
   .mission-plate { width: 100%; min-width: 0; gap: 12px; padding-inline: 10px; font-size: 11px; }
   .card-grid { gap: 7px; }
   .country-name { font-size: clamp(10px, 3.1vw, 15px); }
-}
-
-@keyframes flip-reveal {
-  0% { transform: scaleX(1); }
-  48% { transform: scaleX(.06); }
-  100% { transform: scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
