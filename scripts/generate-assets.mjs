@@ -1,9 +1,10 @@
 import fs from 'node:fs/promises'
 import sharp from 'sharp'
-import { geoMercator, geoPath } from 'd3-geo'
+import { geoArea, geoMercator, geoPath } from 'd3-geo'
 
 const countries = ['KOR', 'JPN', 'USA', 'FRA', 'BRA', 'AUS', 'EGY', 'IND']
 const fallbackNames = { FRA: 'France' }
+const mainlandOnly = new Set(['USA', 'FRA'])
 const geo = JSON.parse(await fs.readFile('/tmp/countries.geojson', 'utf8'))
 await fs.mkdir('public/assets/countries', { recursive: true })
 
@@ -12,8 +13,19 @@ for (const code of countries) {
     f.properties['ISO3166-1-Alpha-3'] === code || f.properties.name === fallbackNames[code],
   )
   if (!feature) throw new Error(`Missing geometry: ${code}`)
-  const projection = geoMercator().fitExtent([[28, 28], [484, 356]], feature)
-  const path = geoPath(projection)(feature)
+  const renderFeature = mainlandOnly.has(code) && feature.geometry.type === 'MultiPolygon'
+    ? {
+        ...feature,
+        geometry: {
+          type: 'Polygon',
+          coordinates: feature.geometry.coordinates
+            .map((coordinates) => ({ coordinates, area: geoArea({ type: 'Polygon', coordinates }) }))
+            .sort((a, b) => b.area - a.area)[0].coordinates,
+        },
+      }
+    : feature
+  const projection = geoMercator().fitExtent([[34, 30], [478, 354]], renderFeature)
+  const path = geoPath(projection)(renderFeature)
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="384" viewBox="0 0 512 384">
     <defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#271708" flood-opacity=".42"/></filter></defs>
     <path d="${path}" fill="#173757" stroke="#b57a25" stroke-width="8" stroke-linejoin="round" filter="url(#s)"/>

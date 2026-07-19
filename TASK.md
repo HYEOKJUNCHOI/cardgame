@@ -5,22 +5,27 @@
 - [x] React/Vite 프로젝트 생성
 - [x] 이미지 생성: 배경, 카드 앞면, 카드 뒷면
 - [x] 생성 카드의 흰색/체커보드 외곽 제거 및 투명 PNG 정리
-- [x] 8개 나라 실루엣 PNG 생성
+- [x] 미국·프랑스 다중 폴리곤 문제 수정 및 8개 실루엣 재정규화
 - [x] 8개 국기 PNG 로컬 에셋 적용
-- [x] 게임 로직 및 이미지 레이어 UI 구현
+- [x] 카드 내부를 `중앙 이미지/이름 → 하단 ?·ISO` 고정 영역으로 재배치
+- [x] 최소 너비 강제를 제거하고 8열 PC / 4열 좁은 화면 반응형 적용
+- [x] HUD 브랜드·통계·새 게임 버튼 잘림 방지
+- [x] 게임 로직 및 완료/재시작 흐름 검증
 - [x] lint/build
-- [x] 짧은 PC 화면 시각 검수
-- [x] 실루엣 카드/국기 카드 앞면 검수
-- [x] 8쌍 자동 플레이 및 완료 모달 검증
-- [x] 이미지 로드/가로 오버플로 검증
+- [x] 상태별 실제 스크린샷 재검수
+- [x] 이미지 로드/텍스트 오버플로/컨테이너 포함 검증
 
 ## 검증 증거
 - `npm run lint`: 0 warnings, 0 errors
 - `npm run build`: Vite production build 성공
-- production preview: `http://localhost:4178`
-- React root mounted: true
-- cards: 16
-- 8쌍 완료 후 matched cards: 16, dialog: true
-- broken images: 0
-- 1280px viewport: `scrollWidth === clientWidth` (가로 오버플로 없음)
-- 실루엣/국기/한글 이름/ISO 코드 실제 렌더링 확인
+- 1365×768: 8×2 전체 노출, 문서 가로 오버플로 0, 텍스트 오버플로 0, 레이어 containment 실패 0
+- 1280×633: HUD와 카드 2행 전체 노출, 문서 가로 오버플로 0
+- 1920×1080: 1450px 보드와 확대 카드 확인
+- 549×700: 4열 전환, 가로 오버플로 0
+- 7쌍 공개 상태에서 14개 앞면 전수 스크린샷 검수
+- 미국·프랑스 실루엣 정상 크기 확인
+- broken images: 0, browser errors: 0
+- 8쌍 완료: matched 16, dialog true
+- 완료 모달 1280×633 내부 완전 포함
+- 다시 도전: matched 0, dialog false, moves 00
+- QA 스크린샷은 `/tmp/world-flip-qa/`에 임시 보관

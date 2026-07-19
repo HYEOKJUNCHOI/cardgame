@@ -2,14 +2,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 const COUNTRIES = [
-  { id: 'KOR', name: '대한민국', flag: '🇰🇷' },
-  { id: 'JPN', name: '일본', flag: '🇯🇵' },
-  { id: 'USA', name: '미국', flag: '🇺🇸' },
-  { id: 'FRA', name: '프랑스', flag: '🇫🇷' },
-  { id: 'BRA', name: '브라질', flag: '🇧🇷' },
-  { id: 'AUS', name: '호주', flag: '🇦🇺' },
-  { id: 'EGY', name: '이집트', flag: '🇪🇬' },
-  { id: 'IND', name: '인도', flag: '🇮🇳' },
+  { id: 'KOR', name: '대한민국' },
+  { id: 'JPN', name: '일본' },
+  { id: 'USA', name: '미국' },
+  { id: 'FRA', name: '프랑스' },
+  { id: 'BRA', name: '브라질' },
+  { id: 'AUS', name: '호주' },
+  { id: 'EGY', name: '이집트' },
+  { id: 'IND', name: '인도' },
 ]
 
 const shuffle = (items) => {
@@ -46,17 +46,18 @@ function GameCard({ card, flipped, matched, disabled, onFlip }) {
           <img className="card-shell" src="/assets/ui/card-front-clean.png" alt="" draggable="false" />
           <span className="card-content">
             {card.type === 'shape' ? (
-              <>
+              <span className="shape-content">
                 <img className="country-shape" src={`/assets/countries/${card.id}.png`} alt={`${card.name} 실루엣`} draggable="false" />
-                <span className="shape-caption">어느 나라일까?</span>
-              </>
+              </span>
             ) : (
               <span className="identity-content">
                 <img className="flag" src={`/assets/flags/${card.id}.png`} alt={`${card.name} 국기`} draggable="false" />
                 <span className="country-name">{card.name}</span>
-                <span className="country-code">{card.id}</span>
               </span>
             )}
+            <span className={`country-code ${card.type === 'shape' ? 'is-question' : ''}`}>
+              {card.type === 'shape' ? '?' : card.id}
+            </span>
           </span>
         </span>
       </span>
