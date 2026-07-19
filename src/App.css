@@ -193,8 +193,10 @@ h1 {
   will-change: transform;
 }
 
-.game-card:not(.is-flipped):not(.is-matched):hover .card-rotor {
-  transform: translateY(-5px) rotateY(-5deg);
+@media (hover: hover) and (pointer: fine) {
+  .game-card:not(.is-flipped):not(.is-matched):hover .card-rotor {
+    transform: translateY(-5px) rotateY(-5deg);
+  }
 }
 
 .game-card.is-flipped .card-rotor,
@@ -380,6 +382,8 @@ h1 {
 .player-score span { font: 13px/1 'Russo One', sans-serif; }
 .player-score strong { color: var(--player-color); font: 24px/1 'Russo One', sans-serif; }
 .player-score em { font-size: 10px; font-style: normal; font-weight: 900; }
+.player-score.is-record { min-width: 150px; }
+.player-score.is-record strong { font-size: 19px; }
 
 .menu-layer {
   position: fixed;
@@ -417,6 +421,7 @@ h1 {
 .game-menu legend { margin-bottom: 9px; color: #bda878; font-size: 12px; font-weight: 900; }
 .option-row { display: grid; gap: 7px; }
 .player-options { grid-template-columns: repeat(3, 1fr); }
+.region-options { grid-template-columns: repeat(3, 1fr); }
 .time-options { grid-template-columns: repeat(4, 1fr); }
 
 .option-row button {
@@ -437,7 +442,13 @@ h1 {
 
 .player-options button { display: flex; align-items: center; justify-content: center; gap: 7px; }
 .player-options i { width: 9px; height: 9px; border-radius: 50%; background: var(--option-color); box-shadow: 0 0 8px var(--option-color); }
+.region-options button { height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.region-options small { color: #92876e; font-size: 9px; }
+.region-options button.is-selected small { color: #d9c899; }
+.region-count { margin: 7px 0 0; color: #9eb4cb; font-size: 10px; font-weight: 800; text-align: right; }
+.region-count.is-short { color: #ff8989; }
 .shuffle-button { width: 100%; justify-self: stretch; margin-top: 3px; }
+.shuffle-button:disabled { color: #7c7566; background: #31343a; border-color: #5c5c5c; box-shadow: none; cursor: not-allowed; filter: none; transform: none; }
 
 .result-layer {
   position: fixed;
@@ -506,7 +517,12 @@ h1 {
 }
 
 @media (max-width: 767px), (orientation: portrait) {
-  .game-stage { height: auto; min-height: 100dvh; overflow-x: hidden; overflow-y: auto; grid-template-rows: auto auto; }
+  .game-stage {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
   .hud { grid-template-columns: 1fr auto; grid-template-rows: auto auto; padding: 8px 12px; }
   .brand-block { align-self: center; }
   .game-controls { grid-column: 2; grid-row: 1; }
@@ -519,7 +535,7 @@ h1 {
   }
   .card-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
   .country-name { font-size: clamp(8px, 2.2vw, 12px); }
-  .score-footer { position: sticky; bottom: 0; grid-template-columns: auto 1fr auto; gap: 8px; padding: 6px 10px; }
+  .score-footer { position: relative; grid-template-columns: auto 1fr auto; gap: 8px; padding: 6px 10px; }
   .footer-menu-button { min-width: 68px; }
   .player-scores { justify-content: flex-end; gap: 5px; }
   .player-score { min-width: 72px; }

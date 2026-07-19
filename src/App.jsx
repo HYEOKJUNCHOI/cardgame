@@ -34,6 +34,16 @@ const COUNTRIES = [
   { id: 'NZL', name: '뉴질랜드' },
 ]
 
+const REGIONS = [
+  { id: 'asia', label: '아시아', countryIds: ['KOR', 'JPN', 'IND', 'CHN', 'SAU', 'THA', 'VNM', 'IDN'] },
+  { id: 'europe', label: '유럽', countryIds: ['FRA', 'DEU', 'ITA', 'GBR', 'ESP', 'PRT', 'RUS', 'TUR'] },
+  { id: 'north-america', label: '북아메리카', countryIds: ['USA', 'CAN', 'MEX'] },
+  { id: 'south-america', label: '남아메리카', countryIds: ['BRA', 'ARG', 'CHL', 'PER', 'COL'] },
+  { id: 'africa', label: '아프리카', countryIds: ['EGY', 'ZAF', 'NGA', 'KEN'] },
+  { id: 'oceania', label: '오세아니아', countryIds: ['AUS', 'NZL'] },
+]
+const ALL_REGION_IDS = REGIONS.map((region) => region.id)
+
 const PLAYER_COLORS = ['#ffd46a', '#63c7ff', '#ff7f82']
 const COUNTRY_COLORS = {
   KOR: '#e6003d', JPN: '#005bac', USA: '#1c2e5a', FRA: '#244aa5', BRA: '#d5ad00',
@@ -54,8 +64,12 @@ const shuffle = (items) => {
   return result
 }
 
-const createDeck = () => {
-  const roundCountries = shuffle(COUNTRIES).slice(0, ROUND_COUNTRY_COUNT)
+const createDeck = (regionIds = ALL_REGION_IDS) => {
+  const selectedIds = new Set(REGIONS
+    .filter((region) => regionIds.includes(region.id))
+    .flatMap((region) => region.countryIds))
+  const availableCountries = COUNTRIES.filter((country) => selectedIds.has(country.id))
+  const roundCountries = shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT)
   return shuffle(roundCountries.flatMap((country) => [
     { ...country, key: `${country.id}-shape-a` },
     { ...country, key: `${country.id}-shape-b` },
@@ -110,11 +124,12 @@ function App() {
   const [deck, setDeck] = useState(createDeck)
   const [open, setOpen] = useState([])
   const [matched, setMatched] = useState([])
-  const [moves, setMoves] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [started, setStarted] = useState(false)
   const [playerCount, setPlayerCount] = useState(2)
   const [pendingPlayerCount, setPendingPlayerCount] = useState(2)
+  const [activeRegions, setActiveRegions] = useState(ALL_REGION_IDS)
+  const [pendingRegions, setPendingRegions] = useState(ALL_REGION_IDS)
   const [mismatchDelay, setMismatchDelay] = useState(1000)
   const [currentPlayer, setCurrentPlayer] = useState(0)
   const [playerScores, setPlayerScores] = useState([0, 0])
@@ -123,7 +138,10 @@ function App() {
   const lockRef = useRef(false)
 
   const complete = matched.length === deck.length / 2
-  const score = useMemo(() => Math.max(0, 9000 - moves * 80 - seconds * 3), [moves, seconds])
+  const soloScore = useMemo(() => Math.max(0, 10000 - seconds * 10), [seconds])
+  const pendingCountryCount = useMemo(() => REGIONS
+    .filter((region) => pendingRegions.includes(region.id))
+    .reduce((total, region) => total + region.countryIds.length, 0), [pendingRegions])
   const winnerText = useMemo(() => {
     const best = Math.max(...playerScores)
     const winners = playerScores
@@ -138,21 +156,29 @@ function App() {
     return () => window.clearInterval(timer)
   }, [started, complete])
 
-  const resetGame = useCallback((nextPlayerCount = pendingPlayerCount) => {
-    setDeck(createDeck())
+  const resetGame = useCallback((
+    nextPlayerCount = pendingPlayerCount,
+    nextRegions = pendingRegions,
+  ) => {
+    const nextCountryCount = REGIONS
+      .filter((region) => nextRegions.includes(region.id))
+      .reduce((total, region) => total + region.countryIds.length, 0)
+    if (nextCountryCount < ROUND_COUNTRY_COUNT) return
+    setDeck(createDeck(nextRegions))
     setOpen([])
     setMatched([])
-    setMoves(0)
     setSeconds(0)
     setStarted(false)
     setPlayerCount(nextPlayerCount)
     setPendingPlayerCount(nextPlayerCount)
+    setActiveRegions(nextRegions)
+    setPendingRegions(nextRegions)
     setCurrentPlayer(0)
     setPlayerScores(Array(nextPlayerCount).fill(0))
     setMatchedOwners({})
     setMenuOpen(false)
     lockRef.current = false
-  }, [pendingPlayerCount])
+  }, [pendingPlayerCount, pendingRegions])
 
   const flipCard = (index) => {
     if (lockRef.current || open.includes(index) || matched.includes(deck[index].id)) return
@@ -163,7 +189,6 @@ function App() {
     if (nextOpen.length < 2) return
 
     lockRef.current = true
-    setMoves((value) => value + 1)
     const [first, second] = nextOpen.map((position) => deck[position])
     const isPair = first.id === second.id
 
@@ -202,10 +227,24 @@ function App() {
         </div>
       </section>
 
-      <footer className="score-footer" aria-label="플레이어 획득 점수">
-        <span className="turn-label"><b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</span>
+      <footer className="score-footer" aria-label={playerCount === 1 ? '싱글 플레이 기록' : '플레이어 획득 점수'}>
+        <span className="turn-label">
+          {playerCount === 1
+            ? '기록 도전'
+            : <><b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</>}
+        </span>
         <div className="player-scores">
-          {playerScores.map((pairs, index) => (
+          {playerCount === 1 ? (
+            <div
+              className="player-score is-current is-record"
+              style={{ '--player-color': PLAYER_COLORS[0] }}
+              aria-label={`현재 기록 ${soloScore.toLocaleString()}점`}
+            >
+              <span>기록</span>
+              <strong>{soloScore.toLocaleString()}</strong>
+              <em>점</em>
+            </div>
+          ) : playerScores.map((pairs, index) => (
             <div
               className={`player-score ${currentPlayer === index && !complete ? 'is-current' : ''}`}
               key={index}
@@ -262,6 +301,32 @@ function App() {
             </fieldset>
 
             <fieldset>
+              <legend>플레이 지역 · 여러 개 선택</legend>
+              <div className="option-row region-options">
+                {REGIONS.map((region) => {
+                  const selected = pendingRegions.includes(region.id)
+                  return (
+                    <button
+                      className={selected ? 'is-selected' : ''}
+                      key={region.id}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setPendingRegions((items) => selected
+                        ? items.filter((id) => id !== region.id)
+                        : [...items, region.id])}
+                    >
+                      <span>{region.label}</span>
+                      <small>{region.countryIds.length}개국</small>
+                    </button>
+                  )
+                })}
+              </div>
+              <p className={`region-count ${pendingCountryCount < ROUND_COUNTRY_COUNT ? 'is-short' : ''}`}>
+                선택 나라 {pendingCountryCount}개 · 게임에는 15개국 사용
+              </p>
+            </fieldset>
+
+            <fieldset>
               <legend>틀린 카드 공개 시간</legend>
               <div className="option-row time-options">
                 {[500, 1000, 1500, 2000].map((delay) => (
@@ -278,8 +343,15 @@ function App() {
               </div>
             </fieldset>
 
-            <button className="shuffle-button" type="button" onClick={() => resetGame(pendingPlayerCount)}>
-              카드 섞고 새 게임
+            <button
+              className="shuffle-button"
+              type="button"
+              disabled={pendingCountryCount < ROUND_COUNTRY_COUNT}
+              onClick={() => resetGame(pendingPlayerCount, pendingRegions)}
+            >
+              {pendingCountryCount < ROUND_COUNTRY_COUNT
+                ? `${ROUND_COUNTRY_COUNT - pendingCountryCount}개국 더 선택`
+                : '카드 섞고 새 게임'}
             </button>
           </section>
         </div>
@@ -290,12 +362,16 @@ function App() {
           <div className="result-panel">
             <img src="/assets/ui/card-back-clean.png" alt="" />
             <p>ATLAS RESTORED</p>
-            <h2 id="result-title">{winnerText}</h2>
-            <div className="result-score"><span>최종 점수</span><strong>{score.toLocaleString()}</strong></div>
+            <h2 id="result-title">{playerCount === 1 ? '기록 완성!' : winnerText}</h2>
+            {playerCount === 1 && (
+              <div className="result-score"><span>최종 기록</span><strong>{soloScore.toLocaleString()}</strong></div>
+            )}
             <div className="result-players">
-              {playerScores.map((pairs, index) => <span key={index}>{index + 1}P {pairs}쌍</span>)}
+              {playerCount === 1
+                ? <span>완료 {seconds}초 · {playerScores[0]}쌍</span>
+                : playerScores.map((pairs, index) => <span key={index}>{index + 1}P {pairs}쌍</span>)}
             </div>
-            <button type="button" onClick={() => resetGame()}>다시 도전</button>
+            <button type="button" onClick={() => resetGame(playerCount, activeRegions)}>다시 도전</button>
           </div>
         </div>
       )}
