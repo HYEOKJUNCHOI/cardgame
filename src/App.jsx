@@ -194,9 +194,13 @@ function App() {
 
       <footer className="score-footer" aria-label={playerCount === 1 ? '싱글 플레이 기록' : '플레이어 획득 점수'}>
         <span className="turn-label">
-          {playerCount === 1
-            ? `${activeArea.label} · 기록 도전`
-            : <>{activeArea.label} · <b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</>}
+          {complete
+            ? (playerCount === 1
+              ? `${activeArea.label} · 완료 ${soloScore.toLocaleString()}점`
+              : `${activeArea.label} · ${winnerText}`)
+            : (playerCount === 1
+              ? `${activeArea.label} · 기록 도전`
+              : <>{activeArea.label} · <b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</>)}
         </span>
         <div className="player-scores">
           {playerCount === 1 ? (
@@ -332,24 +336,6 @@ function App() {
         </div>
       )}
 
-      {complete && (
-        <div className="result-layer" role="dialog" aria-modal="true" aria-labelledby="result-title">
-          <div className="result-panel">
-            <img src="/assets/ui/card-back-clean.png" alt="" />
-            <p>ATLAS RESTORED</p>
-            <h2 id="result-title">{playerCount === 1 ? '기록 완성!' : winnerText}</h2>
-            {playerCount === 1 && (
-              <div className="result-score"><span>최종 기록</span><strong>{soloScore.toLocaleString()}</strong></div>
-            )}
-            <div className="result-players">
-              {playerCount === 1
-                ? <span>완료 {seconds}초 · {playerScores[0]}쌍</span>
-                : playerScores.map((pairs, index) => <span key={index}>{index + 1}P {pairs}쌍</span>)}
-            </div>
-            <button type="button" onClick={() => resetGame(playerCount, activeAreaId)}>다시 도전</button>
-          </div>
-        </div>
-      )}
     </main>
   )
 }
