@@ -181,17 +181,14 @@ h1 {
   transform-style: preserve-3d;
   transition: transform .4s cubic-bezier(.22, .7, .28, 1);
   will-change: transform;
-  filter: drop-shadow(0 8px 7px rgba(0, 0, 0, .58));
 }
 
 .game-card:not(.is-flipped):not(.is-matched):hover .card-rotor {
   transform: translateY(-5px) rotateY(-5deg);
-  filter: drop-shadow(0 13px 10px rgba(0, 0, 0, .7)) brightness(1.07);
 }
 
 .game-card.is-flipped .card-rotor,
 .game-card.is-matched .card-rotor { transform: rotateY(180deg); }
-.game-card.is-matched .card-rotor { filter: drop-shadow(0 0 10px rgba(255, 207, 94, .72)) saturate(.9); }
 
 .card-side {
   position: absolute;
@@ -201,6 +198,15 @@ h1 {
   border-radius: 6.3%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, .58);
+}
+
+.game-card:not(.is-flipped):not(.is-matched):hover .card-side {
+  box-shadow: 0 13px 14px rgba(0, 0, 0, .7);
+}
+
+.game-card.is-matched .card-side {
+  box-shadow: 0 0 14px rgba(255, 207, 94, .72);
 }
 
 .card-back { transform: rotateY(0deg); }
