@@ -36,18 +36,14 @@ const COUNTRIES = [
 
 const PLAYER_COLORS = ['#ffd46a', '#63c7ff', '#ff7f82']
 const COUNTRY_COLORS = {
-  KOR: ['#e6003d', '#171717'], JPN: ['#005bac', '#f4f4f4'], USA: ['#1c2e5a', '#c5203e'],
-  FRA: ['#244aa5', '#d6b44c'], BRA: ['#d5ad00', '#08783e'], AUS: ['#c58b00', '#164b35'],
-  EGY: ['#8f1d36', '#f1e7d4'], IND: ['#1688ba', '#e87822'], CAN: ['#d71920', '#f2f2f2'],
-  DEU: ['#2a2a2a', '#e4d4a8'], ITA: ['#008bc7', '#173f73'], CHN: ['#e13b26', '#f1c232'],
-  GBR: ['#243b67', '#f2f2f2'], ESP: ['#a61b2b', '#e0b51b'], PRT: ['#7e1738', '#126b48'],
-  MEX: ['#006341', '#7b263a'], ARG: ['#62a8e5', '#f4f4f4'], CHL: ['#c72c35', '#174f9c'],
-  PER: ['#7a1f3d', '#f3eee2'], COL: ['#d0a900', '#263e78'], RUS: ['#3158a5', '#f1f1f1'],
-  TUR: ['#b20d30', '#f3f3f3'], SAU: ['#0b7a45', '#e8f0e8'], ZAF: ['#007a4d', '#d4a514'],
-  NGA: ['#16a05d', '#eaf4e9'], KEN: ['#a91f2c', '#17623a'], THA: ['#322d74', '#c6293e'],
-  VNM: ['#d82c20', '#e6bd24'], IDN: ['#c8102e', '#f2f2f2'], NZL: ['#17191c', '#aeb8c4'],
+  KOR: '#e6003d', JPN: '#005bac', USA: '#1c2e5a', FRA: '#244aa5', BRA: '#d5ad00',
+  AUS: '#164b35', EGY: '#8f1d36', IND: '#1688ba', CAN: '#d71920', DEU: '#2a2a2a',
+  ITA: '#008bc7', CHN: '#e13b26', GBR: '#6d7fa3', ESP: '#a61b2b', PRT: '#7e1738',
+  MEX: '#006341', ARG: '#62a8e5', CHL: '#174f9c', PER: '#c2185b', COL: '#d0a900',
+  RUS: '#3158a5', TUR: '#b20d30', SAU: '#0b7a45', ZAF: '#006b5b', NGA: '#16a05d',
+  KEN: '#a91f2c', THA: '#322d74', VNM: '#d82c20', IDN: '#c8102e', NZL: '#17191c',
 }
-const ROUND_COUNTRY_COUNT = 20
+const ROUND_COUNTRY_COUNT = 15
 
 const shuffle = (items) => {
   const result = [...items]
@@ -74,8 +70,8 @@ function GameCard({ card, flipped, matched, owner, disabled, onFlip }) {
     <button
       className={`game-card ${flipped || matched ? 'is-flipped' : ''} ${matched ? 'is-matched' : ''} ${ownerClass}`}
       style={{
-        '--country-color': COUNTRY_COLORS[card.id][0],
-        '--country-accent': COUNTRY_COLORS[card.id][1],
+        '--country-color': COUNTRY_COLORS[card.id],
+        '--country-mask': `url("/assets/countries/${card.id}.png")`,
       }}
       type="button"
       aria-label={label}
@@ -98,6 +94,7 @@ function GameCard({ card, flipped, matched, owner, disabled, onFlip }) {
                 alt="나라 실루엣"
                 draggable="false"
               />
+              <span className="country-shape-solid" aria-hidden="true" />
             </span>
             <span className="country-name" title={matched ? card.name : undefined}>
               {matched ? (card.shortName ?? card.name) : ''}

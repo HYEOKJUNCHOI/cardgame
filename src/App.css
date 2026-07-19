@@ -130,7 +130,7 @@ h1 {
 
 .board {
   align-self: center;
-  width: min(660px, calc(100vw - 24px), calc((100dvh - 66px) * 1.066));
+  width: min(760px, calc(100vw - 24px), calc((100dvh - 60px) * .8));
   margin: 0 auto;
   padding: 8px 0;
 }
@@ -163,7 +163,7 @@ h1 {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 6px;
   perspective: 1400px;
 }
@@ -271,6 +271,25 @@ h1 {
   display: block;
 }
 
+.country-shape-solid {
+  position: absolute;
+  inset: 7% 4%;
+  z-index: 2;
+  display: block;
+  background: var(--country-color);
+  -webkit-mask: var(--country-mask) center / contain no-repeat;
+  mask: var(--country-mask) center / contain no-repeat;
+  opacity: 0;
+  transform: scale(.94);
+  transition: opacity .24s ease .1s, transform .24s ease .1s;
+}
+
+.game-card.is-flipped .country-shape-solid,
+.game-card.is-matched .country-shape-solid {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .country-name {
   position: absolute;
   left: 11.5%;
@@ -282,7 +301,7 @@ h1 {
   min-width: 0;
   overflow: hidden;
   color: #fff8e6;
-  background: linear-gradient(90deg, var(--country-color) 0 76%, var(--country-accent) 76% 100%);
+  background: var(--country-color);
   border-radius: 2px;
   font: clamp(8px, .8vw, 12px)/1 'Black Han Sans', 'Noto Sans KR', sans-serif;
   letter-spacing: .01em;
@@ -493,7 +512,11 @@ h1 {
   .game-controls { grid-column: 2; grid-row: 1; }
   .stats { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
   .stats div { min-width: 78px; padding: 6px 10px; }
-  .board { width: calc(100vw - 16px); min-width: 0; padding: 7px 0 12px; }
+  .board {
+    width: min(calc(100vw - 16px), calc((100dvh - 62px) * .8));
+    min-width: 0;
+    padding: 7px 0 12px;
+  }
   .card-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
   .country-name { font-size: clamp(8px, 2.2vw, 12px); }
   .score-footer { position: sticky; bottom: 0; grid-template-columns: auto 1fr auto; gap: 8px; padding: 6px 10px; }
