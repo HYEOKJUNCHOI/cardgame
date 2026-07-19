@@ -178,6 +178,9 @@ h1 {
   background: transparent;
   cursor: pointer;
   perspective: 900px;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -193,12 +196,6 @@ h1 {
   will-change: transform;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .game-card:not(.is-flipped):not(.is-matched):hover .card-rotor {
-    transform: translateY(-5px) rotateY(-5deg);
-  }
-}
-
 .game-card.is-flipped .card-rotor,
 .game-card.is-matched .card-rotor { transform: rotateY(180deg); }
 
@@ -211,10 +208,6 @@ h1 {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   box-shadow: 0 8px 10px rgba(0, 0, 0, .58);
-}
-
-.game-card:not(.is-flipped):not(.is-matched):hover .card-side {
-  box-shadow: 0 13px 14px rgba(0, 0, 0, .7);
 }
 
 .game-card.is-matched .card-side {

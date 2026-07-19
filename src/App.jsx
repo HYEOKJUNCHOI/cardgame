@@ -144,6 +144,19 @@ function App() {
   }, [playerScores])
 
   useEffect(() => {
+    const preventBrowserGesture = (event) => event.preventDefault()
+    const blockedEvents = ['gesturestart', 'gesturechange', 'gestureend', 'dragstart', 'selectstart', 'contextmenu']
+
+    document.addEventListener('touchmove', preventBrowserGesture, { passive: false })
+    blockedEvents.forEach((eventName) => document.addEventListener(eventName, preventBrowserGesture))
+
+    return () => {
+      document.removeEventListener('touchmove', preventBrowserGesture)
+      blockedEvents.forEach((eventName) => document.removeEventListener(eventName, preventBrowserGesture))
+    }
+  }, [])
+
+  useEffect(() => {
     if (!started || complete) return undefined
     const timer = window.setInterval(() => setSeconds((value) => value + 1), 1000)
     return () => window.clearInterval(timer)
