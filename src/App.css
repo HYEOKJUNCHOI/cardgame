@@ -219,6 +219,10 @@ h1 {
   box-shadow: 0 0 9px var(--owner-color), inset 0 0 0 3px var(--owner-color);
 }
 
+.game-card.is-matched .card-front {
+  box-shadow: 0 0 9px var(--owner-color), inset 0 0 0 3px var(--country-color);
+}
+
 .game-card.is-owned::after {
   content: attr(data-owner);
   position: absolute;
@@ -277,11 +281,21 @@ h1 {
   place-items: center;
   min-width: 0;
   overflow: hidden;
-  color: #132e49;
+  color: #fff8e6;
+  background: linear-gradient(90deg, var(--country-color) 0 76%, var(--country-accent) 76% 100%);
+  border-radius: 2px;
   font: clamp(8px, .8vw, 12px)/1 'Black Han Sans', 'Noto Sans KR', sans-serif;
   letter-spacing: .01em;
   white-space: nowrap;
-  text-shadow: 0 1px #fff6cf;
+  text-shadow: 0 1px 2px #000, 0 0 4px #0008;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity .24s ease .12s, transform .24s ease .12s;
+}
+
+.game-card.is-matched .country-name {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .score-footer {
