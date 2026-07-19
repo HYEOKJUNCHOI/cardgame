@@ -307,7 +307,7 @@ function App() {
             <fieldset>
               <legend>틀린 카드 공개 시간</legend>
               <div className="option-row time-options">
-                {[500, 1000, 1500, 2000].map((delay) => (
+                {[800, 1000, 1500, 2000].map((delay) => (
                   <button
                     className={mismatchDelay === delay ? 'is-selected' : ''}
                     key={delay}
