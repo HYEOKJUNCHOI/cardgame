@@ -472,6 +472,38 @@ h1 {
 .region-options span.is-long { font-size: 9px; letter-spacing: -.07em; }
 .region-options small { color: #92876e; font-size: 8px; font-weight: 500; }
 .region-options button.is-selected small { color: #d9c899; }
+
+.major-country-toggle {
+  min-height: 36px;
+  margin-top: 6px;
+  padding: 5px 9px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #d8ceb5;
+  background: rgba(11, 25, 42, .82);
+  border: 1px solid #475265;
+  cursor: pointer;
+}
+
+.major-country-toggle:has(input:checked) {
+  color: #fff2c7;
+  border-color: #d6a743;
+  box-shadow: inset 0 0 0 1px #d6a743, 0 0 10px #d6a74333;
+}
+
+.major-country-toggle input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #d6a743;
+  flex: 0 0 auto;
+}
+
+.major-country-toggle span { min-width: 0; display: flex; align-items: baseline; gap: 7px; }
+.major-country-toggle strong { font-size: 11px; font-weight: 700; white-space: nowrap; }
+.major-country-toggle small { color: #92876e; font-size: 9px; font-weight: 500; white-space: nowrap; }
+.major-country-toggle:has(input:checked) small { color: #d9c899; }
 .region-count { margin: 7px 0 0; color: #9eb4cb; font-size: 10px; font-weight: 800; text-align: right; }
 .region-count.is-short { color: #ff8989; }
 .shuffle-button { width: 100%; justify-self: stretch; margin-top: 3px; }

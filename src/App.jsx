@@ -5,6 +5,20 @@ import { REGION_PATHS } from './data/regionPaths'
 
 const ALL_REGION_IDS = REGIONS.map((region) => region.id)
 
+// 처음 실루엣을 익힐 때 알아보기 쉬운 주요 국가 위주 학습 풀.
+const MAJOR_COUNTRY_IDS = new Set([
+  'KOR', 'PRK', 'CHN', 'JPN', 'MNG', 'VNM', 'THA', 'MYS', 'SGP', 'IDN', 'PHL', 'MMR',
+  'IND', 'PAK', 'BGD', 'NPL', 'LKA', 'AFG', 'KAZ',
+  'TUR', 'IRN', 'IRQ', 'ISR', 'SAU', 'ARE', 'QAT', 'JOR',
+  'GBR', 'FRA', 'DEU', 'NLD', 'BEL', 'CHE', 'AUT', 'IRL', 'NOR', 'SWE', 'FIN', 'DNK',
+  'ITA', 'ESP', 'PRT', 'GRC', 'RUS', 'UKR', 'ROU', 'HUN', 'CZE', 'SRB',
+  'EGY', 'MAR', 'DZA', 'TUN', 'LBY', 'NGA', 'GHA', 'CMR',
+  'ZAF', 'KEN', 'ETH', 'TZA', 'UGA', 'MDG', 'MOZ', 'ZWE',
+  'USA', 'CAN', 'MEX', 'CUB', 'JAM', 'PAN', 'CRI', 'DOM', 'HTI',
+  'BRA', 'ARG', 'CHL', 'PER', 'COL', 'VEN', 'BOL', 'ECU', 'PRY', 'URY',
+  'AUS', 'NZL', 'PNG', 'FJI',
+])
+
 const PLAYER_COLORS = ['#ffd46a', '#63c7ff', '#ff7f82']
 const COUNTRY_COLOR_OVERRIDES = {
   KOR: '#0047a0', JPN: '#005bac', USA: '#1c2e5a', FRA: '#244aa5', BRA: '#d5ad00',
@@ -29,9 +43,10 @@ const shuffle = (items) => {
   return result
 }
 
-const selectedCountryIds = (regionIds) => new Set(REGIONS
+const selectedCountryIds = (regionIds, majorOnly = false) => new Set(REGIONS
   .filter((region) => regionIds.includes(region.id))
-  .flatMap((region) => region.countryIds))
+  .flatMap((region) => region.countryIds)
+  .filter((countryId) => !majorOnly || MAJOR_COUNTRY_IDS.has(countryId)))
 
 const areaLabel = (regionIds) => {
   if (regionIds.length === ALL_REGION_IDS.length) return '세계 전체'
@@ -40,8 +55,8 @@ const areaLabel = (regionIds) => {
   return `${selected[0]?.label ?? '지역'} 외 ${Math.max(0, selected.length - 1)}곳`
 }
 
-const createDeck = (regionIds = ALL_REGION_IDS) => {
-  const selectedIds = selectedCountryIds(regionIds.length ? regionIds : ALL_REGION_IDS)
+const createDeck = (regionIds = ALL_REGION_IDS, majorOnly = false) => {
+  const selectedIds = selectedCountryIds(regionIds.length ? regionIds : ALL_REGION_IDS, majorOnly)
   const availableCountries = COUNTRIES.filter((country) => selectedIds.has(country.id))
   const roundCountries = shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT)
   while (roundCountries.length < ROUND_COUNTRY_COUNT) {
@@ -107,6 +122,8 @@ function App() {
   const [pendingPlayerCount, setPendingPlayerCount] = useState(2)
   const [activeRegionIds, setActiveRegionIds] = useState(ALL_REGION_IDS)
   const [pendingRegionIds, setPendingRegionIds] = useState(ALL_REGION_IDS)
+  const [activeMajorOnly, setActiveMajorOnly] = useState(false)
+  const [pendingMajorOnly, setPendingMajorOnly] = useState(false)
   const [mismatchDelay, setMismatchDelay] = useState(1000)
   const [currentPlayer, setCurrentPlayer] = useState(0)
   const [playerScores, setPlayerScores] = useState([0, 0])
@@ -116,8 +133,8 @@ function App() {
 
   const complete = matchedIndexes.length === deck.length
   const soloScore = useMemo(() => Math.max(0, 10000 - seconds * 10), [seconds])
-  const activeAreaLabel = areaLabel(activeRegionIds)
-  const pendingCountryCount = selectedCountryIds(pendingRegionIds).size
+  const activeAreaLabel = `${areaLabel(activeRegionIds)}${activeMajorOnly ? ' · 주요 국가' : ''}`
+  const pendingCountryCount = selectedCountryIds(pendingRegionIds, pendingMajorOnly).size
   const winnerText = useMemo(() => {
     const best = Math.max(...playerScores)
     const winners = playerScores
@@ -135,9 +152,10 @@ function App() {
   const resetGame = useCallback((
     nextPlayerCount = pendingPlayerCount,
     nextRegionIds = pendingRegionIds,
+    nextMajorOnly = pendingMajorOnly,
   ) => {
-    if (!nextRegionIds.length) return
-    setDeck(createDeck(nextRegionIds))
+    if (!nextRegionIds.length || selectedCountryIds(nextRegionIds, nextMajorOnly).size === 0) return
+    setDeck(createDeck(nextRegionIds, nextMajorOnly))
     setOpen([])
     setMatchedIndexes([])
     setSeconds(0)
@@ -146,12 +164,14 @@ function App() {
     setPendingPlayerCount(nextPlayerCount)
     setActiveRegionIds(nextRegionIds)
     setPendingRegionIds(nextRegionIds)
+    setActiveMajorOnly(nextMajorOnly)
+    setPendingMajorOnly(nextMajorOnly)
     setCurrentPlayer(0)
     setPlayerScores(Array(nextPlayerCount).fill(0))
     setMatchedOwners({})
     setMenuOpen(false)
     lockRef.current = false
-  }, [pendingPlayerCount, pendingRegionIds])
+  }, [pendingMajorOnly, pendingPlayerCount, pendingRegionIds])
 
   const flipCard = (index) => {
     if (lockRef.current || open.includes(index) || matchedIndexes.includes(index)) return
@@ -324,12 +344,23 @@ function App() {
                   </button>
                 ))}
               </div>
+              <label className="major-country-toggle">
+                <input
+                  type="checkbox"
+                  checked={pendingMajorOnly}
+                  onChange={(event) => setPendingMajorOnly(event.target.checked)}
+                />
+                <span>
+                  <strong>주요 국가만 출제</strong>
+                  <small>처음 외우기 좋은 유명 국가 위주</small>
+                </span>
+              </label>
               <p className={`region-count ${pendingCountryCount === 0 ? 'is-short' : ''}`}>
                 {pendingCountryCount === 0
-                  ? '지역을 1개 이상 선택해 주세요'
+                  ? '선택 조건에 맞는 나라가 없어요'
                   : pendingCountryCount < ROUND_COUNTRY_COUNT
-                    ? `${pendingCountryCount}개국 전부 + ${ROUND_COUNTRY_COUNT - pendingCountryCount}개국 복습 · 30장`
-                    : `선택 나라 ${pendingCountryCount}개국 중 무작위 15개국 · 30장`}
+                    ? `${pendingMajorOnly ? '주요 ' : ''}${pendingCountryCount}개국 전부 + ${ROUND_COUNTRY_COUNT - pendingCountryCount}개국 복습 · 30장`
+                    : `${pendingMajorOnly ? '주요 ' : '선택 나라 '}${pendingCountryCount}개국 중 무작위 15개국 · 30장`}
               </p>
             </fieldset>
 
@@ -353,10 +384,10 @@ function App() {
             <button
               className="shuffle-button"
               type="button"
-              disabled={pendingRegionIds.length === 0}
-              onClick={() => resetGame(pendingPlayerCount, pendingRegionIds)}
+              disabled={pendingCountryCount === 0}
+              onClick={() => resetGame(pendingPlayerCount, pendingRegionIds, pendingMajorOnly)}
             >
-              {pendingRegionIds.length === 0 ? '지역을 선택해 주세요' : '선택 지역 카드 섞고 새 게임'}
+              {pendingCountryCount === 0 ? '출제할 나라를 선택해 주세요' : '선택 조건으로 카드 섞고 새 게임'}
             </button>
           </section>
         </div>
