@@ -13,11 +13,15 @@ const worldCountriesRoot = path.dirname(require.resolve('world-countries'))
 const sourceCountries = countries.filter((country) => country.unMember || ['PSE', 'VAT'].includes(country.cca3))
 
 const REGION_META = {
-  asia: { label: '아시아', expected: 33 },
+  'east-southeast-asia': { label: '동·동남아시아', expected: 16 },
+  'south-central-asia': { label: '남·중앙아시아', expected: 17 },
   'middle-east': { label: '중동', expected: 15 },
-  europe: { label: '유럽', expected: 44 },
-  africa: { label: '아프리카', expected: 54 },
-  americas: { label: '아메리카', expected: 35 },
+  'north-west-europe': { label: '북·서유럽', expected: 18 },
+  'south-east-europe': { label: '남·동유럽', expected: 26 },
+  'north-west-central-africa': { label: '북·서·중부 아프리카', expected: 32 },
+  'east-south-africa': { label: '동·남부 아프리카', expected: 22 },
+  'north-central-america': { label: '북·중미·카리브', expected: 23 },
+  'south-america': { label: '남아메리카', expected: 12 },
   oceania: { label: '오세아니아', expected: 14 },
 }
 
@@ -42,14 +46,26 @@ const ARCHIPELAGO_MARKERS = new Set(['FSM', 'MHL', 'TUV'])
 
 function regionId(country) {
   if (MIDDLE_EAST_IDS.has(country.cca3)) return 'middle-east'
-  if (country.cca3 === 'CYP') return 'asia'
-  return {
-    Asia: 'asia',
-    Europe: 'europe',
-    Africa: 'africa',
-    Americas: 'americas',
-    Oceania: 'oceania',
-  }[country.region]
+  if (country.cca3 === 'CYP') return 'south-central-asia'
+  if (country.region === 'Asia') {
+    return ['Eastern Asia', 'South-Eastern Asia'].includes(country.subregion)
+      ? 'east-southeast-asia'
+      : 'south-central-asia'
+  }
+  if (country.region === 'Europe') {
+    return ['Northern Europe', 'Western Europe'].includes(country.subregion)
+      ? 'north-west-europe'
+      : 'south-east-europe'
+  }
+  if (country.region === 'Africa') {
+    return ['Eastern Africa', 'Southern Africa'].includes(country.subregion)
+      ? 'east-south-africa'
+      : 'north-west-central-africa'
+  }
+  if (country.region === 'Americas') {
+    return country.subregion === 'South America' ? 'south-america' : 'north-central-america'
+  }
+  return 'oceania'
 }
 
 const library = sourceCountries

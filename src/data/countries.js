@@ -3,52 +3,52 @@ export const COUNTRIES = [
   {
     id: 'GHA',
     name: '가나',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'GAB',
     name: '가봉',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'GUY',
     name: '가이아나',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'GMB',
     name: '감비아',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'GTM',
     name: '과테말라',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'GRD',
     name: '그레나다',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'GRC',
     name: '그리스',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'GIN',
     name: '기니',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'GNB',
     name: '기니비사우',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'NAM',
     name: '나미비아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'NRU',
@@ -58,33 +58,33 @@ export const COUNTRIES = [
   {
     id: 'NGA',
     name: '나이지리아',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'SSD',
     name: '남수단',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'ZAF',
     name: '남아프리카공화국',
     shortName: '남아공',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'NLD',
     name: '네덜란드',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'NPL',
     name: '네팔',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'NOR',
     name: '노르웨이',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'NZL',
@@ -94,63 +94,63 @@ export const COUNTRIES = [
   {
     id: 'NER',
     name: '니제르',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'NIC',
     name: '니카라과',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'KOR',
     name: '대한민국',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'DNK',
     name: '덴마크',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'DMA',
     name: '도미니카 연방',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'DOM',
     name: '도미니카공화국',
     shortName: '도미니카공화국',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'DEU',
     name: '독일',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'TLS',
     name: '동티모르',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'LAO',
     name: '라오스',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'LBR',
     name: '라이베리아',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'LVA',
     name: '라트비아',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'RUS',
     name: '러시아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'LBN',
@@ -160,42 +160,42 @@ export const COUNTRIES = [
   {
     id: 'LSO',
     name: '레소토',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'ROU',
     name: '루마니아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'LUX',
     name: '룩셈부르크',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'RWA',
     name: '르완다',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'LBY',
     name: '리비아',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'LTU',
     name: '리투아니아',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'LIE',
     name: '리히텐슈타인',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'MDG',
     name: '마다가스카르',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'MHL',
@@ -205,82 +205,82 @@ export const COUNTRIES = [
   {
     id: 'MWI',
     name: '말라위',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'MYS',
     name: '말레이시아',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'MLI',
     name: '말리',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'MEX',
     name: '멕시코',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'MCO',
     name: '모나코',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'MAR',
     name: '모로코',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'MUS',
     name: '모리셔스',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'MRT',
     name: '모리타니',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'MOZ',
     name: '모잠비크',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'MNE',
     name: '몬테네그로',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'MDA',
     name: '몰도바',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'MDV',
     name: '몰디브',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'MLT',
     name: '몰타',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'MNG',
     name: '몽골국',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'USA',
     name: '미국',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'MMR',
     name: '미얀마',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'FSM',
@@ -300,108 +300,108 @@ export const COUNTRIES = [
   {
     id: 'BRB',
     name: '바베이도스',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'VAT',
     name: '바티칸',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'BHS',
     name: '바하마',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'BGD',
     name: '방글라데시',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'BEN',
     name: '베냉',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'VEN',
     name: '베네수엘라',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'VNM',
     name: '베트남',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'BEL',
     name: '벨기에',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'BLR',
     name: '벨라루스',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'BLZ',
     name: '벨리즈',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'BIH',
     name: '보스니아 헤르체고비나',
     shortName: '보스니아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'BWA',
     name: '보츠와나',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'BOL',
     name: '볼리비아',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'BDI',
     name: '부룬디',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'BFA',
     name: '부르키나파소',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'BTN',
     name: '부탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'MKD',
     name: '북마케도니아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'PRK',
     name: '북한',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'BGR',
     name: '불가리아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'BRA',
     name: '브라질',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'BRN',
     name: '브루나이',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'WSM',
@@ -416,50 +416,50 @@ export const COUNTRIES = [
   {
     id: 'SMR',
     name: '산마리노',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'STP',
     name: '상투메 프린시페',
     shortName: '상투메',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'SEN',
     name: '세네갈',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'SRB',
     name: '세르비아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'SYC',
     name: '세이셸',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'LCA',
     name: '세인트루시아',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'VCT',
     name: '세인트빈센트 그레나딘',
     shortName: '세인트빈센트',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'KNA',
     name: '세인트키츠 네비스',
     shortName: '세인트키츠',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'SOM',
     name: '소말리아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'SLB',
@@ -469,42 +469,42 @@ export const COUNTRIES = [
   {
     id: 'SDN',
     name: '수단',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'SUR',
     name: '수리남',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'LKA',
     name: '스리랑카',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'SWE',
     name: '스웨덴',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'CHE',
     name: '스위스',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'ESP',
     name: '스페인',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'SVK',
     name: '슬로바키아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'SVN',
     name: '슬로베니아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'SYR',
@@ -514,12 +514,12 @@ export const COUNTRIES = [
   {
     id: 'SLE',
     name: '시에라리온',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'SGP',
     name: '싱가포르',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'ARE',
@@ -529,97 +529,97 @@ export const COUNTRIES = [
   {
     id: 'ARM',
     name: '아르메니아',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'ARG',
     name: '아르헨티나',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'ISL',
     name: '아이슬란드',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'HTI',
     name: '아이티',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'IRL',
     name: '아일랜드',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'AZE',
     name: '아제르바이잔',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'AFG',
     name: '아프가니스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'AND',
     name: '안도라',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'ALB',
     name: '알바니아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'DZA',
     name: '알제리',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'AGO',
     name: '앙골라',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'ATG',
     name: '앤티가 바부다',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'ERI',
     name: '에리트레아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'SWZ',
     name: '에스와티니',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'EST',
     name: '에스토니아',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'ECU',
     name: '에콰도르',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'ETH',
     name: '에티오피아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'SLV',
     name: '엘살바도르',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'GBR',
     name: '영국',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'YEM',
@@ -634,12 +634,12 @@ export const COUNTRIES = [
   {
     id: 'AUT',
     name: '오스트리아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'HND',
     name: '온두라스',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'JOR',
@@ -649,22 +649,22 @@ export const COUNTRIES = [
   {
     id: 'UGA',
     name: '우간다',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'URY',
     name: '우루과이',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'UZB',
     name: '우즈베키스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'UKR',
     name: '우크라이나',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'IRQ',
@@ -684,98 +684,98 @@ export const COUNTRIES = [
   {
     id: 'EGY',
     name: '이집트',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'ITA',
     name: '이탈리아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'IND',
     name: '인도',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'IDN',
     name: '인도네시아',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'JPN',
     name: '일본',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'JAM',
     name: '자메이카',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'ZMB',
     name: '잠비아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'GNQ',
     name: '적도 기니',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'GEO',
     name: '조지아',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'CHN',
     name: '중국',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'CAF',
     name: '중앙아프리카 공화국',
     shortName: '중앙아프리카',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'DJI',
     name: '지부티',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'ZWE',
     name: '짐바브웨',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'TCD',
     name: '차드',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'CZE',
     name: '체코',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'CHL',
     name: '칠레',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'CMR',
     name: '카메룬',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'CPV',
     name: '카보베르데',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'KAZ',
     name: '카자흐스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'QAT',
@@ -785,53 +785,53 @@ export const COUNTRIES = [
   {
     id: 'KHM',
     name: '캄보디아',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'CAN',
     name: '캐나다',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'KEN',
     name: '케냐',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'COM',
     name: '코모로',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'CRI',
     name: '코스타리카',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'CIV',
     name: '코트디부아르',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'COL',
     name: '콜롬비아',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'COG',
     name: '콩고공화국',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'COD',
     name: '콩고민주공화국',
     shortName: '민주콩고',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'CUB',
     name: '쿠바',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'KWT',
@@ -841,12 +841,12 @@ export const COUNTRIES = [
   {
     id: 'HRV',
     name: '크로아티아',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'KGZ',
     name: '키르기스스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'KIR',
@@ -856,27 +856,27 @@ export const COUNTRIES = [
   {
     id: 'CYP',
     name: '키프로스',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'TJK',
     name: '타지키스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'TZA',
     name: '탄자니아',
-    regionId: 'africa'
+    regionId: 'east-south-africa'
   },
   {
     id: 'THA',
     name: '태국',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'TGO',
     name: '토고',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'TON',
@@ -886,7 +886,7 @@ export const COUNTRIES = [
   {
     id: 'TKM',
     name: '투르크메니스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'TUV',
@@ -896,7 +896,7 @@ export const COUNTRIES = [
   {
     id: 'TUN',
     name: '튀니지',
-    regionId: 'africa'
+    regionId: 'north-west-central-africa'
   },
   {
     id: 'TUR',
@@ -907,22 +907,22 @@ export const COUNTRIES = [
     id: 'TTO',
     name: '트리니다드 토바고',
     shortName: '트리니다드',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'PAN',
     name: '파나마',
-    regionId: 'americas'
+    regionId: 'north-central-america'
   },
   {
     id: 'PRY',
     name: '파라과이',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'PAK',
     name: '파키스탄',
-    regionId: 'asia'
+    regionId: 'south-central-asia'
   },
   {
     id: 'PNG',
@@ -942,22 +942,22 @@ export const COUNTRIES = [
   {
     id: 'PER',
     name: '페루',
-    regionId: 'americas'
+    regionId: 'south-america'
   },
   {
     id: 'PRT',
     name: '포르투갈',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'POL',
     name: '폴란드',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'FRA',
     name: '프랑스',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'FJI',
@@ -967,17 +967,17 @@ export const COUNTRIES = [
   {
     id: 'FIN',
     name: '핀란드',
-    regionId: 'europe'
+    regionId: 'north-west-europe'
   },
   {
     id: 'PHL',
     name: '필리핀',
-    regionId: 'asia'
+    regionId: 'east-southeast-asia'
   },
   {
     id: 'HUN',
     name: '헝가리',
-    regionId: 'europe'
+    regionId: 'south-east-europe'
   },
   {
     id: 'AUS',
@@ -988,42 +988,48 @@ export const COUNTRIES = [
 
 export const REGIONS = [
   {
-    id: 'asia',
-    label: '아시아',
+    id: 'east-southeast-asia',
+    label: '동·동남아시아',
     countryIds: [
-      'NPL',
       'KOR',
       'TLS',
       'LAO',
       'MYS',
-      'MDV',
       'MNG',
       'MMR',
-      'BGD',
       'VNM',
-      'BTN',
       'PRK',
       'BRN',
-      'LKA',
       'SGP',
+      'IDN',
+      'JPN',
+      'CHN',
+      'KHM',
+      'THA',
+      'PHL'
+    ]
+  },
+  {
+    id: 'south-central-asia',
+    label: '남·중앙아시아',
+    countryIds: [
+      'NPL',
+      'MDV',
+      'BGD',
+      'BTN',
+      'LKA',
       'ARM',
       'AZE',
       'AFG',
       'UZB',
       'IND',
-      'IDN',
-      'JPN',
       'GEO',
-      'CHN',
       'KAZ',
-      'KHM',
       'KGZ',
       'CYP',
       'TJK',
-      'THA',
       'TKM',
-      'PAK',
-      'PHL'
+      'PAK'
     ]
   },
   {
@@ -1048,43 +1054,51 @@ export const REGIONS = [
     ]
   },
   {
-    id: 'europe',
-    label: '유럽',
+    id: 'north-west-europe',
+    label: '북·서유럽',
     countryIds: [
-      'GRC',
       'NLD',
       'NOR',
       'DNK',
       'DEU',
       'LVA',
-      'RUS',
-      'ROU',
       'LUX',
       'LTU',
       'LIE',
       'MCO',
+      'BEL',
+      'SWE',
+      'CHE',
+      'ISL',
+      'IRL',
+      'EST',
+      'GBR',
+      'FRA',
+      'FIN'
+    ]
+  },
+  {
+    id: 'south-east-europe',
+    label: '남·동유럽',
+    countryIds: [
+      'GRC',
+      'RUS',
+      'ROU',
       'MNE',
       'MDA',
       'MLT',
       'VAT',
-      'BEL',
       'BLR',
       'BIH',
       'MKD',
       'BGR',
       'SMR',
       'SRB',
-      'SWE',
-      'CHE',
       'ESP',
       'SVK',
       'SVN',
-      'ISL',
-      'IRL',
       'AND',
       'ALB',
-      'EST',
-      'GBR',
       'AUT',
       'UKR',
       'ITA',
@@ -1092,76 +1106,79 @@ export const REGIONS = [
       'HRV',
       'PRT',
       'POL',
-      'FRA',
-      'FIN',
       'HUN'
     ]
   },
   {
-    id: 'africa',
-    label: '아프리카',
+    id: 'north-west-central-africa',
+    label: '북·서·중부 아프리카',
     countryIds: [
       'GHA',
       'GAB',
       'GMB',
       'GIN',
       'GNB',
-      'NAM',
       'NGA',
       'SSD',
-      'ZAF',
       'NER',
       'LBR',
-      'LSO',
-      'RWA',
       'LBY',
-      'MDG',
-      'MWI',
       'MLI',
       'MAR',
-      'MUS',
       'MRT',
-      'MOZ',
       'BEN',
-      'BWA',
-      'BDI',
       'BFA',
       'STP',
       'SEN',
-      'SYC',
-      'SOM',
       'SDN',
       'SLE',
       'DZA',
       'AGO',
-      'ERI',
-      'SWZ',
-      'ETH',
-      'UGA',
       'EGY',
-      'ZMB',
       'GNQ',
       'CAF',
-      'DJI',
-      'ZWE',
       'TCD',
       'CMR',
       'CPV',
-      'KEN',
-      'COM',
       'CIV',
       'COG',
       'COD',
-      'TZA',
       'TGO',
       'TUN'
     ]
   },
   {
-    id: 'americas',
-    label: '아메리카',
+    id: 'east-south-africa',
+    label: '동·남부 아프리카',
     countryIds: [
-      'GUY',
+      'NAM',
+      'ZAF',
+      'LSO',
+      'RWA',
+      'MDG',
+      'MWI',
+      'MUS',
+      'MOZ',
+      'BWA',
+      'BDI',
+      'SYC',
+      'SOM',
+      'ERI',
+      'SWZ',
+      'ETH',
+      'UGA',
+      'ZMB',
+      'DJI',
+      'ZWE',
+      'KEN',
+      'COM',
+      'TZA'
+    ]
+  },
+  {
+    id: 'north-central-america',
+    label: '북·중미·카리브',
+    countryIds: [
       'GTM',
       'GRD',
       'NIC',
@@ -1171,29 +1188,36 @@ export const REGIONS = [
       'USA',
       'BRB',
       'BHS',
-      'VEN',
       'BLZ',
-      'BOL',
-      'BRA',
       'LCA',
       'VCT',
       'KNA',
-      'SUR',
-      'ARG',
       'HTI',
       'ATG',
-      'ECU',
       'SLV',
       'HND',
-      'URY',
       'JAM',
-      'CHL',
       'CAN',
       'CRI',
-      'COL',
       'CUB',
       'TTO',
-      'PAN',
+      'PAN'
+    ]
+  },
+  {
+    id: 'south-america',
+    label: '남아메리카',
+    countryIds: [
+      'GUY',
+      'VEN',
+      'BOL',
+      'BRA',
+      'SUR',
+      'ARG',
+      'ECU',
+      'URY',
+      'CHL',
+      'COL',
       'PRY',
       'PER'
     ]

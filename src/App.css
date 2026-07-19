@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@500;700;900&family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Russo+One&display=swap');
 
 * { box-sizing: border-box; }
 button { font: inherit; }
@@ -63,7 +63,7 @@ button { font: inherit; }
 h1 {
   margin: 0;
   color: #fff1c7;
-  font: clamp(23px, 2vw, 30px)/1.15 'Black Han Sans', 'Noto Sans KR', sans-serif;
+  font: 700 clamp(23px, 2vw, 30px)/1.15 'Noto Sans KR', sans-serif;
   letter-spacing: .02em;
   white-space: nowrap;
 }
@@ -92,7 +92,7 @@ h1 {
   margin-bottom: 3px;
   color: #bda878;
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: .12em;
   white-space: nowrap;
 }
@@ -114,7 +114,7 @@ h1 {
   color: #1b1206;
   background: #d6a743;
   box-shadow: inset 0 0 0 2px #6f4616, inset 0 0 0 4px #f6d57a, 0 4px 0 #4e2d0e, 0 8px 18px #0009;
-  font-weight: 900;
+  font-weight: 700;
   white-space: nowrap;
   cursor: pointer;
   transition: transform .16s ease, filter .16s ease;
@@ -305,8 +305,8 @@ h1 {
   color: #fff8e6;
   background: var(--country-color);
   border-radius: 2px;
-  font: clamp(8px, .8vw, 12px)/1 'Black Han Sans', 'Noto Sans KR', sans-serif;
-  letter-spacing: .01em;
+  font: 700 clamp(7px, .68vw, 10px)/1.1 'Noto Sans KR', sans-serif;
+  letter-spacing: -.04em;
   white-space: nowrap;
   text-shadow: 0 1px 2px #000, 0 0 4px #0008;
   opacity: 0;
@@ -336,7 +336,7 @@ h1 {
 
 .turn-label {
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: .08em;
 }
 
@@ -350,7 +350,7 @@ h1 {
   color: #f4d98f;
   background: #122238;
   box-shadow: inset 0 0 0 1px #5e461d, 0 3px 0 #050a11;
-  font-weight: 900;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -381,7 +381,7 @@ h1 {
 
 .player-score span { font: 13px/1 'Russo One', sans-serif; }
 .player-score strong { color: var(--player-color); font: 24px/1 'Russo One', sans-serif; }
-.player-score em { font-size: 10px; font-style: normal; font-weight: 900; }
+.player-score em { font-size: 10px; font-style: normal; font-weight: 700; }
 .player-score.is-record { min-width: 150px; }
 .player-score.is-record strong { font-size: 19px; }
 
@@ -399,7 +399,7 @@ h1 {
 .game-menu {
   width: min(460px, calc(100vw - 36px));
   max-height: calc(100dvh - 24px);
-  padding: 18px 20px;
+  padding: 14px 18px;
   overflow: hidden;
   color: #f8e9bf;
   background: #071426 url('/assets/ui/atlas-table.png') center / cover no-repeat;
@@ -407,8 +407,8 @@ h1 {
   box-shadow: 0 24px 70px #000, inset 0 0 42px rgba(15, 45, 83, .72);
 }
 
-.menu-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
-.menu-heading h2 { margin: 0; font: 24px/1 'Black Han Sans', 'Noto Sans KR', sans-serif; }
+.menu-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+.menu-heading h2 { margin: 0; font: 700 22px/1.2 'Noto Sans KR', sans-serif; }
 .menu-heading button {
   width: 34px;
   height: 34px;
@@ -419,17 +419,17 @@ h1 {
   cursor: pointer;
 }
 
-.game-menu fieldset { margin: 0 0 13px; padding: 0; border: 0; }
-.game-menu legend { margin-bottom: 9px; color: #bda878; font-size: 12px; font-weight: 900; }
-.option-row { display: grid; gap: 7px; }
+.game-menu fieldset { margin: 0 0 9px; padding: 0; border: 0; }
+.game-menu legend { margin-bottom: 6px; color: #bda878; font-size: 11px; font-weight: 700; }
+.option-row { display: grid; gap: 5px; }
 .player-options { grid-template-columns: repeat(3, 1fr); }
-.region-options { grid-template-columns: repeat(3, 1fr); }
+.region-options { grid-template-columns: repeat(4, 1fr); }
 .time-options { grid-template-columns: repeat(4, 1fr); }
 
 .region-map {
   width: 100%;
-  height: 112px;
-  margin: -5px 0 8px;
+  height: 88px;
+  margin: -3px 0 6px;
   display: block;
   overflow: visible;
   background: rgba(4, 13, 24, .72);
@@ -449,11 +449,12 @@ h1 {
 .region-map path.is-selected { fill: #c69539; filter: drop-shadow(0 0 4px #e8b957aa); }
 
 .option-row button {
-  height: 42px;
+  height: 36px;
   border: 1px solid #475265;
   color: #cbc2aa;
   background: #0b192a;
-  font-weight: 900;
+  font-size: 11px;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -466,8 +467,10 @@ h1 {
 
 .player-options button { display: flex; align-items: center; justify-content: center; gap: 7px; }
 .player-options i { width: 9px; height: 9px; border-radius: 50%; background: var(--option-color); box-shadow: 0 0 8px var(--option-color); }
-.region-options button { height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
-.region-options small { color: #92876e; font-size: 9px; }
+.region-options button { height: 36px; min-width: 0; padding: 2px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.1; }
+.region-options span { max-width: 100%; font-size: 10px; letter-spacing: -.04em; white-space: nowrap; }
+.region-options span.is-long { font-size: 9px; letter-spacing: -.07em; }
+.region-options small { color: #92876e; font-size: 8px; font-weight: 500; }
 .region-options button.is-selected small { color: #d9c899; }
 .region-count { margin: 7px 0 0; color: #9eb4cb; font-size: 10px; font-weight: 800; text-align: right; }
 .region-count.is-short { color: #ff8989; }
@@ -514,12 +517,12 @@ h1 {
 .result-players,
 .result-panel button { position: relative; z-index: 1; }
 .result-panel p { margin: 0 0 18px; color: #d9ad55; font: 13px/1 'Russo One', sans-serif; letter-spacing: .18em; }
-.result-panel h2 { margin: 0 0 28px; font: clamp(25px, 3vw, 32px)/1.35 'Black Han Sans', 'Noto Sans KR', sans-serif; word-break: keep-all; }
+.result-panel h2 { margin: 0 0 28px; font: 700 clamp(25px, 3vw, 32px)/1.35 'Noto Sans KR', sans-serif; word-break: keep-all; }
 .result-score { margin-bottom: 22px; }
-.result-score span { display: block; color: #b8aa83; font-size: 13px; font-weight: 900; }
+.result-score span { display: block; color: #b8aa83; font-size: 13px; font-weight: 700; }
 .result-score strong { display: block; margin-top: 8px; color: #ffd56f; font: clamp(42px, 6vw, 52px)/1 'Russo One', sans-serif; }
 .result-players { display: flex; justify-content: center; gap: 9px; margin: 0 0 28px; }
-.result-players span { padding: 7px 10px; border: 1px solid #80642e; color: #f7d98c; background: #0a1b30; font-weight: 900; }
+.result-players span { padding: 7px 10px; border: 1px solid #80642e; color: #f7d98c; background: #0a1b30; font-weight: 700; }
 .result-panel button { justify-self: center; width: 180px; }
 
 @media (max-width: 1180px) {

@@ -3,10 +3,7 @@ import './App.css'
 import { COUNTRIES, REGIONS } from './data/countries'
 import { REGION_PATHS } from './data/regionPaths'
 
-const PLAY_AREAS = [
-  { id: 'world', label: '세계 전체', countryIds: COUNTRIES.map((country) => country.id) },
-  ...REGIONS,
-]
+const ALL_REGION_IDS = REGIONS.map((region) => region.id)
 
 const PLAYER_COLORS = ['#ffd46a', '#63c7ff', '#ff7f82']
 const COUNTRY_COLOR_OVERRIDES = {
@@ -32,12 +29,22 @@ const shuffle = (items) => {
   return result
 }
 
-const createDeck = (areaId = 'world') => {
-  const area = PLAY_AREAS.find((item) => item.id === areaId) ?? PLAY_AREAS[0]
-  const selectedIds = new Set(area.countryIds)
+const selectedCountryIds = (regionIds) => new Set(REGIONS
+  .filter((region) => regionIds.includes(region.id))
+  .flatMap((region) => region.countryIds))
+
+const areaLabel = (regionIds) => {
+  if (regionIds.length === ALL_REGION_IDS.length) return '세계 전체'
+  const selected = REGIONS.filter((region) => regionIds.includes(region.id))
+  if (selected.length === 1) return selected[0].label
+  return `${selected[0]?.label ?? '지역'} 외 ${Math.max(0, selected.length - 1)}곳`
+}
+
+const createDeck = (regionIds = ALL_REGION_IDS) => {
+  const selectedIds = selectedCountryIds(regionIds.length ? regionIds : ALL_REGION_IDS)
   const availableCountries = COUNTRIES.filter((country) => selectedIds.has(country.id))
   const roundCountries = shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT)
-  if (roundCountries.length < ROUND_COUNTRY_COUNT) {
+  while (roundCountries.length < ROUND_COUNTRY_COUNT) {
     roundCountries.push(...shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT - roundCountries.length))
   }
   return shuffle(roundCountries.flatMap((country, pairIndex) => [
@@ -98,8 +105,8 @@ function App() {
   const [started, setStarted] = useState(false)
   const [playerCount, setPlayerCount] = useState(2)
   const [pendingPlayerCount, setPendingPlayerCount] = useState(2)
-  const [activeAreaId, setActiveAreaId] = useState('world')
-  const [pendingAreaId, setPendingAreaId] = useState('world')
+  const [activeRegionIds, setActiveRegionIds] = useState(ALL_REGION_IDS)
+  const [pendingRegionIds, setPendingRegionIds] = useState(ALL_REGION_IDS)
   const [mismatchDelay, setMismatchDelay] = useState(1000)
   const [currentPlayer, setCurrentPlayer] = useState(0)
   const [playerScores, setPlayerScores] = useState([0, 0])
@@ -109,8 +116,8 @@ function App() {
 
   const complete = matchedIndexes.length === deck.length
   const soloScore = useMemo(() => Math.max(0, 10000 - seconds * 10), [seconds])
-  const activeArea = PLAY_AREAS.find((area) => area.id === activeAreaId) ?? PLAY_AREAS[0]
-  const pendingArea = PLAY_AREAS.find((area) => area.id === pendingAreaId) ?? PLAY_AREAS[0]
+  const activeAreaLabel = areaLabel(activeRegionIds)
+  const pendingCountryCount = selectedCountryIds(pendingRegionIds).size
   const winnerText = useMemo(() => {
     const best = Math.max(...playerScores)
     const winners = playerScores
@@ -127,23 +134,24 @@ function App() {
 
   const resetGame = useCallback((
     nextPlayerCount = pendingPlayerCount,
-    nextAreaId = pendingAreaId,
+    nextRegionIds = pendingRegionIds,
   ) => {
-    setDeck(createDeck(nextAreaId))
+    if (!nextRegionIds.length) return
+    setDeck(createDeck(nextRegionIds))
     setOpen([])
     setMatchedIndexes([])
     setSeconds(0)
     setStarted(false)
     setPlayerCount(nextPlayerCount)
     setPendingPlayerCount(nextPlayerCount)
-    setActiveAreaId(nextAreaId)
-    setPendingAreaId(nextAreaId)
+    setActiveRegionIds(nextRegionIds)
+    setPendingRegionIds(nextRegionIds)
     setCurrentPlayer(0)
     setPlayerScores(Array(nextPlayerCount).fill(0))
     setMatchedOwners({})
     setMenuOpen(false)
     lockRef.current = false
-  }, [pendingAreaId, pendingPlayerCount])
+  }, [pendingPlayerCount, pendingRegionIds])
 
   const flipCard = (index) => {
     if (lockRef.current || open.includes(index) || matchedIndexes.includes(index)) return
@@ -172,6 +180,12 @@ function App() {
     }, isPair ? 430 : mismatchDelay)
   }
 
+  const togglePendingRegion = (regionId) => {
+    setPendingRegionIds((items) => (items.includes(regionId)
+      ? items.filter((id) => id !== regionId)
+      : [...items, regionId]))
+  }
+
   return (
     <main className="game-stage">
       <div className="background-layer" aria-hidden="true" />
@@ -196,11 +210,11 @@ function App() {
         <span className="turn-label">
           {complete
             ? (playerCount === 1
-              ? `${activeArea.label} · 완료 ${soloScore.toLocaleString()}점`
-              : `${activeArea.label} · ${winnerText}`)
+              ? `${activeAreaLabel} · 완료 ${soloScore.toLocaleString()}점`
+              : `${activeAreaLabel} · ${winnerText}`)
             : (playerCount === 1
-              ? `${activeArea.label} · 기록 도전`
-              : <>{activeArea.label} · <b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</>)}
+              ? `${activeAreaLabel} · 기록 도전`
+              : <>{activeAreaLabel} · <b style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer + 1}P</b> 차례</>)}
         </span>
         <div className="player-scores">
           {playerCount === 1 ? (
@@ -270,41 +284,52 @@ function App() {
             </fieldset>
 
             <fieldset>
-              <legend>외울 지역 · 지도나 이름을 선택</legend>
+              <legend>외울 지역 · 여러 지역 선택 가능</legend>
               <svg className="region-map" viewBox="0 0 600 300" role="img" aria-label="세계 지역 선택 지도">
                 {REGIONS.map((region) => (
                   <path
-                    className={pendingAreaId === 'world' || pendingAreaId === region.id ? 'is-selected' : ''}
+                    className={pendingRegionIds.includes(region.id) ? 'is-selected' : ''}
                     key={region.id}
                     d={REGION_PATHS[region.id]}
                     role="button"
                     tabIndex="0"
-                    aria-label={`${region.label} ${region.countryIds.length}개국 선택`}
-                    onClick={() => setPendingAreaId(region.id)}
+                    aria-label={`${region.label} ${region.countryIds.length}개국 ${pendingRegionIds.includes(region.id) ? '선택 해제' : '선택'}`}
+                    onClick={() => togglePendingRegion(region.id)}
                     onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') setPendingAreaId(region.id)
+                      if (event.key === 'Enter' || event.key === ' ') togglePendingRegion(region.id)
                     }}
                   />
                 ))}
               </svg>
               <div className="option-row region-options">
-                {PLAY_AREAS.map((area) => (
+                <button
+                  className={pendingRegionIds.length === ALL_REGION_IDS.length ? 'is-selected' : ''}
+                  type="button"
+                  aria-pressed={pendingRegionIds.length === ALL_REGION_IDS.length}
+                  onClick={() => setPendingRegionIds(ALL_REGION_IDS)}
+                >
+                  <span>세계 전체</span>
+                  <small>195개국</small>
+                </button>
+                {REGIONS.map((region) => (
                   <button
-                    className={pendingAreaId === area.id ? 'is-selected' : ''}
-                    key={area.id}
+                    className={pendingRegionIds.includes(region.id) ? 'is-selected' : ''}
+                    key={region.id}
                     type="button"
-                    aria-pressed={pendingAreaId === area.id}
-                    onClick={() => setPendingAreaId(area.id)}
+                    aria-pressed={pendingRegionIds.includes(region.id)}
+                    onClick={() => togglePendingRegion(region.id)}
                   >
-                    <span>{area.label}</span>
-                    <small>{area.countryIds.length}개국</small>
+                    <span className={region.label.length > 9 ? 'is-long' : ''}>{region.label}</span>
+                    <small>{region.countryIds.length}개국</small>
                   </button>
                 ))}
               </div>
-              <p className="region-count">
-                {pendingArea.id === 'oceania'
-                  ? '14개국 전부 + 무작위 1개국 복습 · 30장'
-                  : `${pendingArea.countryIds.length}개국 중 무작위 15개국 · 30장`}
+              <p className={`region-count ${pendingCountryCount === 0 ? 'is-short' : ''}`}>
+                {pendingCountryCount === 0
+                  ? '지역을 1개 이상 선택해 주세요'
+                  : pendingCountryCount < ROUND_COUNTRY_COUNT
+                    ? `${pendingCountryCount}개국 전부 + ${ROUND_COUNTRY_COUNT - pendingCountryCount}개국 복습 · 30장`
+                    : `선택 나라 ${pendingCountryCount}개국 중 무작위 15개국 · 30장`}
               </p>
             </fieldset>
 
@@ -328,9 +353,10 @@ function App() {
             <button
               className="shuffle-button"
               type="button"
-              onClick={() => resetGame(pendingPlayerCount, pendingAreaId)}
+              disabled={pendingRegionIds.length === 0}
+              onClick={() => resetGame(pendingPlayerCount, pendingRegionIds)}
             >
-              {pendingArea.label} 카드 섞고 새 게임
+              {pendingRegionIds.length === 0 ? '지역을 선택해 주세요' : '선택 지역 카드 섞고 새 게임'}
             </button>
           </section>
         </div>
