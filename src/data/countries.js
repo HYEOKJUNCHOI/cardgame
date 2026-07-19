@@ -155,7 +155,7 @@ export const COUNTRIES = [
   {
     id: 'LBN',
     name: '레바논',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'LSO',
@@ -295,7 +295,7 @@ export const COUNTRIES = [
   {
     id: 'BHR',
     name: '바레인',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'BRB',
@@ -411,7 +411,7 @@ export const COUNTRIES = [
   {
     id: 'SAU',
     name: '사우디아라비아',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'SMR',
@@ -509,7 +509,7 @@ export const COUNTRIES = [
   {
     id: 'SYR',
     name: '시리아',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'SLE',
@@ -524,7 +524,7 @@ export const COUNTRIES = [
   {
     id: 'ARE',
     name: '아랍에미리트',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'ARM',
@@ -624,12 +624,12 @@ export const COUNTRIES = [
   {
     id: 'YEM',
     name: '예멘',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'OMN',
     name: '오만',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'AUT',
@@ -644,7 +644,7 @@ export const COUNTRIES = [
   {
     id: 'JOR',
     name: '요르단',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'UGA',
@@ -669,17 +669,17 @@ export const COUNTRIES = [
   {
     id: 'IRQ',
     name: '이라크',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'IRN',
     name: '이란',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'ISR',
     name: '이스라엘',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'EGY',
@@ -780,7 +780,7 @@ export const COUNTRIES = [
   {
     id: 'QAT',
     name: '카타르',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'KHM',
@@ -836,7 +836,7 @@ export const COUNTRIES = [
   {
     id: 'KWT',
     name: '쿠웨이트',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'HRV',
@@ -901,7 +901,7 @@ export const COUNTRIES = [
   {
     id: 'TUR',
     name: '튀르키예',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'TTO',
@@ -937,7 +937,7 @@ export const COUNTRIES = [
   {
     id: 'PSE',
     name: '팔레스타인',
-    regionId: 'asia'
+    regionId: 'middle-east'
   },
   {
     id: 'PER',
@@ -995,50 +995,56 @@ export const REGIONS = [
       'KOR',
       'TLS',
       'LAO',
-      'LBN',
       'MYS',
       'MDV',
       'MNG',
       'MMR',
-      'BHR',
       'BGD',
       'VNM',
       'BTN',
       'PRK',
       'BRN',
-      'SAU',
       'LKA',
-      'SYR',
       'SGP',
-      'ARE',
       'ARM',
       'AZE',
       'AFG',
-      'YEM',
-      'OMN',
-      'JOR',
       'UZB',
-      'IRQ',
-      'IRN',
-      'ISR',
       'IND',
       'IDN',
       'JPN',
       'GEO',
       'CHN',
       'KAZ',
-      'QAT',
       'KHM',
-      'KWT',
       'KGZ',
       'CYP',
       'TJK',
       'THA',
       'TKM',
-      'TUR',
       'PAK',
-      'PSE',
       'PHL'
+    ]
+  },
+  {
+    id: 'middle-east',
+    label: '중동',
+    countryIds: [
+      'LBN',
+      'BHR',
+      'SAU',
+      'SYR',
+      'ARE',
+      'YEM',
+      'OMN',
+      'JOR',
+      'IRQ',
+      'IRN',
+      'ISR',
+      'QAT',
+      'KWT',
+      'TUR',
+      'PSE'
     ]
   },
   {

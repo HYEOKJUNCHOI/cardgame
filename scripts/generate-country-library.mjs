@@ -13,12 +13,17 @@ const worldCountriesRoot = path.dirname(require.resolve('world-countries'))
 const sourceCountries = countries.filter((country) => country.unMember || ['PSE', 'VAT'].includes(country.cca3))
 
 const REGION_META = {
-  asia: { label: '아시아', expected: 48 },
+  asia: { label: '아시아', expected: 33 },
+  'middle-east': { label: '중동', expected: 15 },
   europe: { label: '유럽', expected: 44 },
   africa: { label: '아프리카', expected: 54 },
   americas: { label: '아메리카', expected: 35 },
   oceania: { label: '오세아니아', expected: 14 },
 }
+
+const MIDDLE_EAST_IDS = new Set([
+  'SAU', 'ARE', 'QAT', 'KWT', 'BHR', 'OMN', 'YEM', 'IRQ', 'IRN', 'ISR', 'PSE', 'JOR', 'LBN', 'SYR', 'TUR',
+])
 
 const NAME_OVERRIDES = {
   AUS: '호주', CAN: '캐나다', CHN: '중국', COD: '콩고민주공화국', COG: '콩고공화국',
@@ -36,6 +41,7 @@ const SHORT_NAME_OVERRIDES = {
 const ARCHIPELAGO_MARKERS = new Set(['FSM', 'MHL', 'TUV'])
 
 function regionId(country) {
+  if (MIDDLE_EAST_IDS.has(country.cca3)) return 'middle-east'
   if (country.cca3 === 'CYP') return 'asia'
   return {
     Asia: 'asia',
@@ -65,7 +71,7 @@ for (const [id, meta] of Object.entries(REGION_META)) {
 
 function jsValue(value) {
   return JSON.stringify(value, null, 2)
-    .replace(/"([^"\n]+)":/g, '$1:')
+    .replace(/"([^"\n]+)":/g, (_match, key) => (/^[A-Za-z_$][\w$]*$/.test(key) ? `${key}:` : `'${key}':`))
     .replace(/"([^"\n]+)"/g, "'$1'")
 }
 
@@ -160,4 +166,4 @@ const workers = Array.from({ length: 10 }, async () => {
   }
 })
 await Promise.all(workers)
-console.log(`\nGenerated ${library.length} countries and five region map paths.`)
+console.log(`\nGenerated ${library.length} countries and ${regions.length} region map paths.`)
