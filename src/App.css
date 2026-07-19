@@ -130,7 +130,7 @@ h1 {
 
 .board {
   align-self: center;
-  width: min(760px, calc(100vw - 24px), calc((100dvh - 60px) * 1.11));
+  width: min(660px, calc(100vw - 24px), calc((100dvh - 66px) * 1.066));
   margin: 0 auto;
   padding: 8px 0;
 }
@@ -163,7 +163,7 @@ h1 {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 6px;
   perspective: 1400px;
 }
@@ -467,7 +467,6 @@ h1 {
 
 @media (orientation: landscape) and (max-height: 680px) {
   .game-stage { min-height: 520px; }
-  .board { width: min(720px, calc(100vw - 20px), calc((100dvh - 54px) * 1.11)); }
   .card-grid { gap: 5px; }
   .score-footer { min-height: 50px; padding-block: 4px; }
   .player-score { height: 36px; }

@@ -35,6 +35,7 @@ const COUNTRIES = [
 ]
 
 const PLAYER_COLORS = ['#ffd46a', '#63c7ff', '#ff7f82']
+const ROUND_COUNTRY_COUNT = 20
 
 const shuffle = (items) => {
   const result = [...items]
@@ -45,10 +46,13 @@ const shuffle = (items) => {
   return result
 }
 
-const createDeck = () => shuffle(COUNTRIES.flatMap((country) => [
-  { ...country, key: `${country.id}-shape-a` },
-  { ...country, key: `${country.id}-shape-b` },
-]))
+const createDeck = () => {
+  const roundCountries = shuffle(COUNTRIES).slice(0, ROUND_COUNTRY_COUNT)
+  return shuffle(roundCountries.flatMap((country) => [
+    { ...country, key: `${country.id}-shape-a` },
+    { ...country, key: `${country.id}-shape-b` },
+  ]))
+}
 
 function GameCard({ card, flipped, matched, owner, disabled, onFlip }) {
   const label = flipped || matched ? `${card.name} 실루엣` : '뒤집기'
@@ -103,7 +107,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const lockRef = useRef(false)
 
-  const complete = matched.length === COUNTRIES.length
+  const complete = matched.length === deck.length / 2
   const score = useMemo(() => Math.max(0, 9000 - moves * 80 - seconds * 3), [moves, seconds])
   const winnerText = useMemo(() => {
     const best = Math.max(...playerScores)
