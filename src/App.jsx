@@ -10,6 +10,10 @@ const COUNTRIES = [
   { id: 'AUS', name: '호주' },
   { id: 'EGY', name: '이집트' },
   { id: 'IND', name: '인도' },
+  { id: 'CAN', name: '캐나다' },
+  { id: 'DEU', name: '독일' },
+  { id: 'ITA', name: '이탈리아' },
+  { id: 'CHN', name: '중국' },
 ]
 
 const shuffle = (items) => {
@@ -22,13 +26,13 @@ const shuffle = (items) => {
 }
 
 const createDeck = () => shuffle(COUNTRIES.flatMap((country) => [
-  { ...country, key: `${country.id}-shape`, type: 'shape' },
-  { ...country, key: `${country.id}-identity`, type: 'identity' },
+  { ...country, key: `${country.id}-shape-a`, type: 'shape' },
+  { ...country, key: `${country.id}-shape-b`, type: 'shape' },
 ]))
 
 function GameCard({ card, flipped, matched, disabled, onFlip }) {
   const label = flipped || matched
-    ? `${card.name} ${card.type === 'shape' ? '실루엣' : '국기 카드'}`
+    ? `${card.name} 실루엣`
     : '뒤집기'
 
   return (
@@ -45,19 +49,10 @@ function GameCard({ card, flipped, matched, disabled, onFlip }) {
         <span className="card-side card-front">
           <img className="card-shell" src="/assets/ui/card-front-clean.png" alt="" draggable="false" />
           <span className="card-content">
-            {card.type === 'shape' ? (
-              <span className="shape-content">
-                <img className="country-shape" src={`/assets/countries/${card.id}.png`} alt={`${card.name} 실루엣`} draggable="false" />
-              </span>
-            ) : (
-              <span className="identity-content">
-                <img className="flag" src={`/assets/flags/${card.id}.png`} alt={`${card.name} 국기`} draggable="false" />
-                <span className="country-name">{card.name}</span>
-              </span>
-            )}
-            <span className={`country-code ${card.type === 'shape' ? 'is-question' : ''}`}>
-              {card.type === 'shape' ? '?' : card.id}
+            <span className="shape-content">
+              <img className="country-shape" src={`/assets/countries/${card.id}.png`} alt={`${card.name} 실루엣`} draggable="false" />
             </span>
+            <span className="country-name">{card.name}</span>
           </span>
         </span>
       </span>
@@ -103,7 +98,7 @@ function App() {
     lockRef.current = true
     setMoves((value) => value + 1)
     const [first, second] = nextOpen.map((position) => deck[position])
-    const isPair = first.id === second.id && first.type !== second.type
+    const isPair = first.id === second.id
 
     window.setTimeout(() => {
       if (isPair) setMatched((items) => [...items, first.id])
@@ -130,7 +125,7 @@ function App() {
 
       <section className="board" aria-label="나라 카드 뒤집기 게임판">
         <div className="mission-plate">
-          <span>실루엣과 국기를 찾아 짝을 맞추세요</span>
+          <span>같은 나라의 실루엣 두 장을 찾아보세요</span>
           <strong>{matched.length} / {COUNTRIES.length}</strong>
         </div>
         <div className="card-grid">
