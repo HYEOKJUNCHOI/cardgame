@@ -398,14 +398,16 @@ h1 {
 
 .game-menu {
   width: min(460px, calc(100vw - 36px));
-  padding: 22px;
+  max-height: calc(100dvh - 24px);
+  padding: 18px 20px;
+  overflow: hidden;
   color: #f8e9bf;
   background: #071426 url('/assets/ui/atlas-table.png') center / cover no-repeat;
   border: 2px solid #c99639;
   box-shadow: 0 24px 70px #000, inset 0 0 42px rgba(15, 45, 83, .72);
 }
 
-.menu-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.menu-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
 .menu-heading h2 { margin: 0; font: 24px/1 'Black Han Sans', 'Noto Sans KR', sans-serif; }
 .menu-heading button {
   width: 34px;
@@ -417,12 +419,34 @@ h1 {
   cursor: pointer;
 }
 
-.game-menu fieldset { margin: 0 0 19px; padding: 0; border: 0; }
+.game-menu fieldset { margin: 0 0 13px; padding: 0; border: 0; }
 .game-menu legend { margin-bottom: 9px; color: #bda878; font-size: 12px; font-weight: 900; }
 .option-row { display: grid; gap: 7px; }
 .player-options { grid-template-columns: repeat(3, 1fr); }
 .region-options { grid-template-columns: repeat(3, 1fr); }
 .time-options { grid-template-columns: repeat(4, 1fr); }
+
+.region-map {
+  width: 100%;
+  height: 112px;
+  margin: -5px 0 8px;
+  display: block;
+  overflow: visible;
+  background: rgba(4, 13, 24, .72);
+  border: 1px solid #33445a;
+}
+
+.region-map path {
+  fill: #27374a;
+  stroke: #07101d;
+  stroke-width: 1.2px;
+  cursor: pointer;
+  transition: fill .16s ease, filter .16s ease;
+}
+
+.region-map path:hover,
+.region-map path:focus { fill: #4d6c86; outline: none; }
+.region-map path.is-selected { fill: #c69539; filter: drop-shadow(0 0 4px #e8b957aa); }
 
 .option-row button {
   height: 42px;
@@ -442,7 +466,7 @@ h1 {
 
 .player-options button { display: flex; align-items: center; justify-content: center; gap: 7px; }
 .player-options i { width: 9px; height: 9px; border-radius: 50%; background: var(--option-color); box-shadow: 0 0 8px var(--option-color); }
-.region-options button { height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.region-options button { height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
 .region-options small { color: #92876e; font-size: 9px; }
 .region-options button.is-selected small { color: #d9c899; }
 .region-count { margin: 7px 0 0; color: #9eb4cb; font-size: 10px; font-weight: 800; text-align: right; }
