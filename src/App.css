@@ -200,7 +200,7 @@ h1 {
   overflow: hidden;
   border-radius: 6.3%;
   box-shadow: 0 8px 10px rgba(0, 0, 0, .58);
-  transition: opacity .16s ease;
+  transform-origin: center;
 }
 
 .game-card.is-matched .card-side {
@@ -233,12 +233,31 @@ h1 {
 .owner-2 { --owner-color: #63c7ff; }
 .owner-3 { --owner-color: #ff7f82; }
 
-.card-back { opacity: 1; }
-.card-front { opacity: 0; }
+.card-back {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: transform .16s ease .16s, opacity 0s linear .16s;
+}
+
+.card-front {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: transform .16s ease, opacity 0s linear .16s;
+}
+
 .game-card.is-flipped .card-back,
-.game-card.is-matched .card-back { opacity: 0; }
+.game-card.is-matched .card-back {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: transform .16s ease, opacity 0s linear .16s;
+}
+
 .game-card.is-flipped .card-front,
-.game-card.is-matched .card-front { opacity: 1; }
+.game-card.is-matched .card-front {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: transform .16s ease .16s, opacity 0s linear .16s;
+}
 .card-side > img { width: 100%; height: 100%; object-fit: fill; display: block; pointer-events: none; }
 
 .card-shell { position: absolute; inset: 0; z-index: 1; }
@@ -605,6 +624,7 @@ h1 {
 
 @media (prefers-reduced-motion: reduce) {
   .card-rotor,
+  .card-side,
   .menu-button,
   .shuffle-button,
   .result-panel button { transition: none; animation: none !important; }
