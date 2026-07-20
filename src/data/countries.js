@@ -269,7 +269,7 @@ export const COUNTRIES = [
   },
   {
     id: 'MNG',
-    name: '몽골국',
+    name: '몽골',
     regionId: 'east-southeast-asia'
   },
   {

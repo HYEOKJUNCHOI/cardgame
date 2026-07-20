@@ -56,12 +56,23 @@ const areaLabel = (regionIds) => {
 }
 
 const createDeck = (regionIds = ALL_REGION_IDS, majorOnly = false) => {
-  const selectedIds = selectedCountryIds(regionIds.length ? regionIds : ALL_REGION_IDS, majorOnly)
-  const availableCountries = COUNTRIES.filter((country) => selectedIds.has(country.id))
-  const roundCountries = shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT)
-  while (roundCountries.length < ROUND_COUNTRY_COUNT) {
-    roundCountries.push(...shuffle(availableCountries).slice(0, ROUND_COUNTRY_COUNT - roundCountries.length))
+  const normalizedRegionIds = regionIds.length ? regionIds : ALL_REGION_IDS
+  const preferredIds = selectedCountryIds(normalizedRegionIds, majorOnly)
+  const regionalIds = selectedCountryIds(normalizedRegionIds)
+  const preferredCountries = COUNTRIES.filter((country) => preferredIds.has(country.id))
+  const regionalCountries = COUNTRIES.filter((country) => regionalIds.has(country.id))
+  const roundCountries = []
+  const selectedRoundIds = new Set()
+
+  for (const pool of [preferredCountries, regionalCountries, COUNTRIES]) {
+    for (const country of shuffle(pool)) {
+      if (roundCountries.length === ROUND_COUNTRY_COUNT) break
+      if (selectedRoundIds.has(country.id)) continue
+      roundCountries.push(country)
+      selectedRoundIds.add(country.id)
+    }
   }
+
   return shuffle(roundCountries.flatMap((country, pairIndex) => [
     { ...country, key: `${country.id}-${pairIndex}-shape-a` },
     { ...country, key: `${country.id}-${pairIndex}-shape-b` },
@@ -83,6 +94,7 @@ function GameCard({ card, flipped, matched, owner, disabled, onFlip }) {
       aria-label={label}
       aria-pressed={flipped || matched}
       data-owner={owner === undefined ? undefined : `${owner + 1}P`}
+      data-country-id={card.id}
       disabled={disabled || matched}
       onClick={onFlip}
     >
@@ -133,8 +145,33 @@ function App() {
 
   const complete = matchedIndexes.length === deck.length
   const soloScore = useMemo(() => Math.max(0, 10000 - seconds * 10), [seconds])
-  const activeAreaLabel = `${areaLabel(activeRegionIds)}${activeMajorOnly ? ' · 주요 국가' : ''}`
+  const activeAreaLabel = `${areaLabel(activeRegionIds)}${activeMajorOnly ? ' · 주요 국가 우선' : ''}`
   const pendingCountryCount = selectedCountryIds(pendingRegionIds, pendingMajorOnly).size
+  const pendingRegionalCountryCount = selectedCountryIds(pendingRegionIds).size
+  const sameRegionSupplementCount = Math.min(
+    Math.max(0, ROUND_COUNTRY_COUNT - pendingCountryCount),
+    Math.max(0, pendingRegionalCountryCount - pendingCountryCount),
+  )
+  const globalSupplementCount = Math.max(
+    0,
+    ROUND_COUNTRY_COUNT - pendingCountryCount - sameRegionSupplementCount,
+  )
+  const pendingDeckDescription = (() => {
+    if (pendingRegionalCountryCount === 0) return '선택 조건에 맞는 나라가 없어요'
+    if (pendingCountryCount >= ROUND_COUNTRY_COUNT) {
+      return `${pendingMajorOnly ? '주요 ' : '선택 나라 '}${pendingCountryCount}개국 중 무작위 15개국 · 30장`
+    }
+
+    const parts = []
+    if (pendingMajorOnly) {
+      if (pendingCountryCount) parts.push(`주요 ${pendingCountryCount}개국`)
+      if (sameRegionSupplementCount) parts.push(`같은 지역 ${sameRegionSupplementCount}개국`)
+    } else {
+      parts.push(`선택 지역 ${pendingCountryCount}개국`)
+    }
+    if (globalSupplementCount) parts.push(`다른 지역 ${globalSupplementCount}개국`)
+    return `${parts.join(' + ')} · 중복 없는 15개국 · 30장`
+  })()
   const winnerText = useMemo(() => {
     const best = Math.max(...playerScores)
     const winners = playerScores
@@ -167,7 +204,7 @@ function App() {
     nextRegionIds = pendingRegionIds,
     nextMajorOnly = pendingMajorOnly,
   ) => {
-    if (!nextRegionIds.length || selectedCountryIds(nextRegionIds, nextMajorOnly).size === 0) return
+    if (!nextRegionIds.length || selectedCountryIds(nextRegionIds).size === 0) return
     setDeck(createDeck(nextRegionIds, nextMajorOnly))
     setOpen([])
     setMatchedIndexes([])
@@ -364,16 +401,12 @@ function App() {
                   onChange={(event) => setPendingMajorOnly(event.target.checked)}
                 />
                 <span>
-                  <strong>주요 국가만 출제</strong>
-                  <small>처음 외우기 좋은 유명 국가 위주</small>
+                  <strong>주요 국가 우선 출제</strong>
+                  <small>15개국 미만이면 중복 없이 부족한 나라 보충</small>
                 </span>
               </label>
-              <p className={`region-count ${pendingCountryCount === 0 ? 'is-short' : ''}`}>
-                {pendingCountryCount === 0
-                  ? '선택 조건에 맞는 나라가 없어요'
-                  : pendingCountryCount < ROUND_COUNTRY_COUNT
-                    ? `${pendingMajorOnly ? '주요 ' : ''}${pendingCountryCount}개국 전부 + ${ROUND_COUNTRY_COUNT - pendingCountryCount}개국 복습 · 30장`
-                    : `${pendingMajorOnly ? '주요 ' : '선택 나라 '}${pendingCountryCount}개국 중 무작위 15개국 · 30장`}
+              <p className={`region-count ${pendingRegionalCountryCount === 0 ? 'is-short' : ''}`}>
+                {pendingDeckDescription}
               </p>
             </fieldset>
 
@@ -397,10 +430,10 @@ function App() {
             <button
               className="shuffle-button"
               type="button"
-              disabled={pendingCountryCount === 0}
+              disabled={pendingRegionalCountryCount === 0}
               onClick={() => resetGame(pendingPlayerCount, pendingRegionIds, pendingMajorOnly)}
             >
-              {pendingCountryCount === 0 ? '출제할 나라를 선택해 주세요' : '선택 조건으로 카드 섞고 새 게임'}
+              {pendingRegionalCountryCount === 0 ? '출제할 나라를 선택해 주세요' : '선택 조건으로 카드 섞고 새 게임'}
             </button>
           </section>
         </div>

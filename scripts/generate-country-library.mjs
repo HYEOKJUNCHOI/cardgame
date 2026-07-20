@@ -33,7 +33,7 @@ const NAME_OVERRIDES = {
   AUS: '호주', CAN: '캐나다', CHN: '중국', COD: '콩고민주공화국', COG: '콩고공화국',
   CZE: '체코', DEU: '독일', DMA: '도미니카 연방', DOM: '도미니카공화국', EGY: '이집트',
   ESP: '스페인', FRA: '프랑스', GBR: '영국', GRC: '그리스', IND: '인도', ITA: '이탈리아',
-  JPN: '일본', KOR: '대한민국', LAO: '라오스', MMR: '미얀마', NLD: '네덜란드',
+  JPN: '일본', KOR: '대한민국', LAO: '라오스', MMR: '미얀마', MNG: '몽골', NLD: '네덜란드',
   NZL: '뉴질랜드', PRK: '북한', RUS: '러시아', SWZ: '에스와티니', TUR: '튀르키예',
   USA: '미국', VAT: '바티칸', ZAF: '남아프리카공화국',
 }
